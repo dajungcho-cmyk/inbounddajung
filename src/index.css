@@ -1,0 +1,427 @@
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Design tokens */
+:root {
+  --bg-light: #ffffff;
+  --bg-grouped: #f2f2f7;
+  --bg-dark: #000000;
+  --text-primary: #111118;
+  --text-subtle: #6b7280;
+  --text-inverse: #ffffff;
+  --lavender: #ede8ff;
+  --brand-purple: #6b46ff;
+  --bubble-ai: #ede8ff;
+  --bubble-incoming: #f2f2f7;
+  --separator: #e5e5ea;
+  --radius-md: 12px;
+  --radius-pill: 100px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+  background: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── iPhone 17 Pro frame ── */
+.phone-frame {
+  position: relative;
+  /* Titanium frame thickness */
+  padding: 14px;
+  border-radius: 58px;
+  /* Black Titanium finish */
+  background: linear-gradient(145deg, #3a3a3a 0%, #1a1a1a 30%, #2c2c2c 60%, #111111 100%);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.08) inset,
+    0 0 0 1px rgba(0,0,0,0.8),
+    0 40px 100px rgba(0,0,0,0.9),
+    0 8px 24px rgba(0,0,0,0.6);
+}
+
+/* Side buttons */
+.phone-frame::before {
+  content: '';
+  position: absolute;
+  /* Volume up + down on left */
+  left: -4px;
+  top: 148px;
+  width: 4px;
+  height: 36px;
+  background: linear-gradient(to right, #1a1a1a, #2e2e2e);
+  border-radius: 2px 0 0 2px;
+  box-shadow:
+    0 48px 0 #2e2e2e,   /* volume down */
+    0 -52px 0 #2e2e2e;  /* action button */
+}
+
+/* Power button on right */
+.phone-frame::after {
+  content: '';
+  position: absolute;
+  right: -4px;
+  top: 196px;
+  width: 4px;
+  height: 68px;
+  background: linear-gradient(to left, #1a1a1a, #2e2e2e);
+  border-radius: 0 2px 2px 0;
+}
+
+/* Phone shell (screen area) */
+.phone {
+  width: 393px;
+  height: 852px;
+  background: var(--bg-light);
+  border-radius: 46px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dynamic Island */
+.phone::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 34px;
+  background: #000;
+  border-radius: 20px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* Screen wrapper */
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.screen--dark {
+  background: var(--bg-dark);
+}
+
+.screen--light {
+  background: var(--bg-light);
+}
+
+.screen--grouped {
+  background: var(--bg-grouped);
+}
+
+/* Status bar — tall enough to sit below the Dynamic Island */
+.status-bar {
+  height: 58px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 28px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+
+.status-bar--light { color: var(--text-primary); }
+.status-bar--dark  { color: var(--text-inverse); }
+
+/* Nav bar */
+.nav-bar {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.nav-bar__back {
+  background: none;
+  border: none;
+  color: var(--brand-purple);
+  font-size: 17px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+}
+
+.nav-bar__title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Scrollable content area */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.content::-webkit-scrollbar { display: none; }
+
+
+/* Pill button (lavender, light mode) */
+.pill-btn {
+  width: 100%;
+  height: 56px;
+  background: var(--lavender);
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.pill-btn__circle {
+  width: 48px;
+  height: 48px;
+  background: var(--text-primary);
+  border-radius: 50%;
+  margin-left: 4px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+}
+
+.pill-btn__label {
+  flex: 1;
+  text-align: center;
+  margin-right: 56px; /* balance the circle */
+}
+
+/* Pill button (white, dark mode) */
+.pill-btn--dark {
+  background: var(--text-inverse);
+  color: var(--text-primary);
+}
+
+.pill-btn--dark .pill-btn__label {
+  margin: 0;
+  width: 100%;
+}
+
+/* Secondary button */
+.secondary-btn {
+  background: none;
+  border: none;
+  font-size: 15px;
+  color: var(--text-subtle);
+  cursor: pointer;
+  padding: 12px;
+  width: 100%;
+}
+
+.secondary-btn--dark {
+  width: 100%;
+  height: 56px;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  border-radius: 14px;
+  font-size: 17px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+}
+
+/* Primary action button */
+.primary-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--brand-purple);
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+}
+
+/* Card */
+.card {
+  background: var(--bg-light);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--separator);
+  padding: var(--spacing-4);
+}
+
+.card--selected {
+  border-color: var(--brand-purple);
+  border-width: 2px;
+}
+
+/* DM bubble */
+.bubble {
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 15px;
+  line-height: 1.4;
+  max-width: 75%;
+}
+
+.bubble--incoming {
+  background: var(--bubble-incoming);
+  border-bottom-left-radius: 4px;
+  align-self: flex-start;
+}
+
+.bubble--ai {
+  background: var(--bubble-ai);
+  border-bottom-right-radius: 4px;
+  align-self: flex-end;
+}
+
+/* X dismiss button (dark screens) */
+.dismiss-btn {
+  position: absolute;
+  top: 66px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  z-index: 20;
+}
+
+/* Fade-in animation */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up { animation: fadeUp 0.4s ease forwards; }
+.fade-up-delay-1 { animation: fadeUp 0.4s ease 0.1s forwards; opacity: 0; }
+.fade-up-delay-2 { animation: fadeUp 0.4s ease 0.2s forwards; opacity: 0; }
+
+/* Full-screen cover slide-up */
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+.slide-up {
+  animation: slideUp 0.4s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+/* Scanning steps */
+.scan-step {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(8px);
+}
+
+.scan-step--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scan-step__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 16px;
+}
+
+.scan-step--pending  .scan-step__icon { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.3); }
+.scan-step--active   .scan-step__icon { background: rgba(255,255,255,0.16); }
+.scan-step--complete .scan-step__icon { background: rgba(255,255,255,0.2);  color: white; }
+
+.scan-step__label {
+  font-size: 17px;
+  color: rgba(255,255,255,0.3);
+}
+
+.scan-step--active   .scan-step__label { color: rgba(255,255,255,0.7); }
+.scan-step--complete .scan-step__label { color: white; font-weight: 600; }
+
+/* Activity row */
+.activity-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--separator);
+  cursor: pointer;
+  background: var(--bg-light);
+}
+
+.activity-row--highlight { background: rgba(107, 70, 255, 0.05); }
+
+/* Scrim fade for playground */
+@keyframes scrimFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Typewriter cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Notion-style shimmer for thinking text */
+@keyframes notionShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Typing dots */
+@keyframes typingDot {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-3px); }
+}
+
+/* Spinner */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
